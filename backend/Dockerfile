@@ -26,3 +26,7 @@ COPY ./prestart.sh /app/
 COPY ./tests-start.sh /app/
 
 COPY ./app /app/app
+
+# Install rsync
+RUN apt update
+RUN apt install -y rsync

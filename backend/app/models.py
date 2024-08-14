@@ -110,3 +110,9 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=40)
+
+
+# Restore API content
+class RestoreBase(SQLModel):
+    source: str = Field()
+    destination: str = Field()

@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres:12
+    container_name: db_app
     restart: always
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
@@ -25,6 +26,7 @@ services:
 
   adminer:
     image: adminer
+    container_name: adminer_app
     restart: always
     depends_on:
       - db
@@ -35,11 +37,14 @@ services:
 
   backend:
     image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'
+    container_name: backend_app
     restart: always
     depends_on:
       - db
     env_file:
       - .env
+    volumes:
+      - ./ssh:/root/.ssh
     environment:
       - DOMAIN=${DOMAIN}
       - ENVIRONMENT=${ENVIRONMENT}
